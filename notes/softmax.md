@@ -90,48 +90,36 @@ class My_loss(nn.Module):
 
 9. **`torch.mean(...)`**：对所有样本的损失求平均，得到最终的损失值。
 
-##### 公式推导
-\(\text{Loss}_i = -z_i + \log\left(\sum_{j} e^{z_j}\right)\) 等价于 \(\text{Loss} = -\log(p_i)\)
-
+#### 公式推导
+![公式](https://latex.codecogs.com/svg.image?\(\text{Loss}_i=-z_i&plus;\log\left(\sum_{j}e^{z_j}\right)\)=\(\text{Loss}=-\log(p_i)\))
 1. **Softmax 函数**
 
    Softmax 函数将 logits 转换为概率分布，其公式为：
-   \[
-   p_i = \frac{e^{z_i}}{\sum_{j} e^{z_j}}
-   \]
+   ![公式](https://latex.codecogs.com/svg.latex?p_i%20=%20\frac{e^{z_i}}{\sum_{j}%20e^{z_j}})
+
    这是将未归一化的 logits \(z\) 转换为概率 \(p\) 的过程，其中 \(p_i\) 是类别 \(i\) 的预测概率。
 
 2. **交叉熵损失函数**
 
    交叉熵损失用于衡量预测分布和真实分布之间的差异。对于一个样本，其损失公式为：
-   \[
-   \text{Loss} = -\log(p_i)
-   \]
+   ![公式](https://latex.codecogs.com/svg.latex?\text{Loss}%20=%20-\log(p_i))
+
    对于真实类别 \(i\)，这相当于：
-   \[
-   \text{Loss} = -\log\left(\frac{e^{z_i}}{\sum_{j} e^{z_j}}\right)
-   \]
+   ![公式](https://latex.codecogs.com/svg.latex?\text{Loss}%20=%20-\log\left(\frac{e^{z_i}}{\sum_{j}%20e^{z_j}}\right))
 
 #### 化简过程
 
 1. **直接带入公式：**
 
-   \[
-   \text{Loss} = -\log\left(\frac{e^{z_i}}{\sum_{j} e^{z_j}}\right)
-   \]
+   ![公式](https://latex.codecogs.com/svg.latex?\text{Loss}%20=%20-\log\left(\frac{e^{z_i}}{\sum_{j}%20e^{z_j}}\right))
 
 2. **使用对数的性质 \(\log\left(\frac{a}{b}\right) = \log(a) - \log(b)\)：**
 
-   \[
-   \text{Loss} = -\left(\log(e^{z_i}) - \log\left(\sum_{j} e^{z_j}\right)\right)
-   \]
+   ![公式](https://latex.codecogs.com/svg.latex?\text{Loss}%20=%20-\left(\log(e^{z_i})%20-%20\log\left(\sum_{j}%20e^{z_j}\right)\right))
 
 3. **进一步化简：**
 
-   \[
-   \text{Loss} = -z_i + \log\left(\sum_{j} e^{z_j}\right)
-   \]
-
+   ![公式](https://latex.codecogs.com/svg.latex?\text{Loss}%20=%20-z_i%20+%20\log\left(\sum_{j}%20e^{z_j}\right))
 
 ## 6、模型优化
 ```python
