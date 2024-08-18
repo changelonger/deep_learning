@@ -113,7 +113,7 @@ class My_loss(nn.Module):
 
    ![公式](https://latex.codecogs.com/svg.latex?\text{Loss}%20=%20-\log\left(\frac{e^{z_i}}{\sum_{j}%20e^{z_j}}\right))
 
-2. **使用对数的性质 \(\log\left(\frac{a}{b}\right) = \log(a) - \log(b)\)：**
+2. **使用对数的性质**
 
    ![公式](https://latex.codecogs.com/svg.latex?\text{Loss}%20=%20-\left(\log(e^{z_i})%20-%20\log\left(\sum_{j}%20e^{z_j}\right)\right))
 
