@@ -7,12 +7,12 @@ import torchvision.transforms as transforms
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 # Hyper-parameters    这些代码定义了超参数，包括输入大小、隐藏层大小、类别数量、训练周期数、批次大小和学习率
-input_size = 784
-hidden_size = 500
-num_classes = 10
-num_epochs = 5
-batch_size = 100
-learning_rate = 0.001
+input_size = 784  # 输入大小
+hidden_size = 500  # 隐藏层
+num_classes = 10  # 识别的种类，输出
+num_epochs = 5  # 训练次数
+batch_size = 100  # 小批次个数
+learning_rate = 0.001  # 学习率
 
 # MNIST dataset  这行代码加载MNIST训练集数据，并进行相应的数据处理，包括转换为张量（transforms.ToTensor()）和下载数据。
 train_dataset = torchvision.datasets.MNIST(root='../dataset',
@@ -34,7 +34,8 @@ test_loader = torch.utils.data.DataLoader(dataset=test_dataset,
                                           shuffle=False)
 
 
-# Fully connected neural network with one hidden layer  这段代码定义了一个名为NeuralNet的类，该类继承自nn.Module。类中的__init__方法定义了模型的结构，包括两个线性层和一个ReLU激活函数。forward方法定义了模型的前向传播过程。
+# Fully connected neural network with one hidden layer  这段代码定义了一个名为NeuralNet的类，该类继承自nn.Module。
+# 类中的__init__方法定义了模型的结构，包括两个线性层和一个ReLU激活函数。forward方法定义了模型的前向传播过程。
 class NeuralNet(nn.Module):
     def __init__(self, input_size, hidden_size, num_classes):
         super(NeuralNet, self).__init__()
@@ -43,22 +44,24 @@ class NeuralNet(nn.Module):
         self.fc2 = nn.Linear(hidden_size, num_classes)
 
     def forward(self, x):
-        out = self.fc1(x)
-        out = self.relu(out)
-        out = self.fc2(out)
-        return out
+        out = self.fc1(x)  # 输入层到隐藏层
+        out = self.relu(out)  # 隐藏层激活
+        out = self.fc2(out)  # 隐藏层到输出层
+        return out  # 输出
 
 
-model = NeuralNet(input_size, hidden_size, num_classes).to(device)    #这行代码创建了一个NeuralNet的实例，并将其移动到指定的设备上
+model = NeuralNet(input_size, hidden_size, num_classes).to(device)
+# 这行代码创建了一个NeuralNet的实例，并将其移动到指定的设备上
 
 # Loss and optimizer  这些代码定义了损失函数（交叉熵损失）和优化器（Adam优化器）
 criterion = nn.CrossEntropyLoss()
-optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)  # Adam是优化器的一种
 
 # Train the model  这些代码开始训练模型。使用嵌套的循环遍历训练数据加载器中的每个批次，并进行前向传播、计算损失、反向传播和优化模型的参数。周期性地打印出当前训练步骤的信息
 total_step = len(train_loader)
 for epoch in range(num_epochs):
     for i, (images, labels) in enumerate(train_loader):
+        # enumerate 可以同时返回元素的索引和元素本身，非常适合在需要跟踪索引的循环中使用。
         # Move tensors to the configured device
         images = images.reshape(-1, 28 * 28).to(device)
         labels = labels.to(device)
@@ -92,4 +95,4 @@ with torch.no_grad():
     print('Accuracy of the network on the 10000 test images: {} %'.format(100 * correct / total))
 
 # Save the model checkpoint
-torch.save(model.state_dict(), 'model.ckpt')
+torch.save(model.state_dict(), 'mlp_model.ckpt')

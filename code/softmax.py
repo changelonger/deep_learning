@@ -4,6 +4,8 @@ from torch.utils import data
 from torchvision import transforms
 from torch import nn
 from d2l import torch as d2l
+import os
+
 
 d2l.use_svg_display()
 
