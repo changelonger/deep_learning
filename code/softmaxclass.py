@@ -56,7 +56,8 @@ class My_loss(nn.Module):
 
     def forward(self, outputs, labels):
         loss = torch.mean(
-            -torch.gather(outputs, 1, labels.reshape(labels.size()[0], 1)) + torch.log(outputs.exp().sum(1)))
+            -torch.gather(outputs, 1, labels.reshape(labels.size()[0], 1))
+            + torch.log(outputs.exp().sum(1)))
         return loss
 
 
