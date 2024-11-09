@@ -89,12 +89,11 @@ for epoch in range(num_epochs):
         # Forward pass
         outputs = model(images)
         # print(labels)
-        loss = criterion(outputs, labels)
-
+        loss = criterion(outputs, labels)  # 计算损失函数的数值
         # Backward and optimize
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
+        optimizer.zero_grad()  # 梯度清零
+        loss.backward()  # 反向传播计算梯度
+        optimizer.step()  # 更新参数
 
         if (i + 1) % 100 == 0:
             print('Epoch [{}/{}], Step [{}/{}], Loss: {:.4f}'
