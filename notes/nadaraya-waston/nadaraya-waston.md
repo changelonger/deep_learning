@@ -21,7 +21,7 @@ from d2l import torch as d2l
 
 简单起见，考虑下面这个回归问题：
 给定的成对的“输入－输出”数据集
-$\{(x_1, y_1), \ldots, (x_n, y_n)\}$，
+![](https://latex.codecogs.com/svg.image?$\{(x_1,y_1),\ldots,(x_n,y_n)\}$)
 如何学习$f$来预测任意新输入$x$的输出$\hat{y} = f(x)$？
 
 根据下面的非线性函数生成一个人工数据集，
